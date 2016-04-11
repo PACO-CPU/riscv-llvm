@@ -46,3 +46,7 @@ tools/lldb
 tools/lld
 # Sphinx build tree, if building in-source dir.
 docs/_build
+#==============================================================================#
+# (fake) Submodules need to be ignored
+#==============================================================================#
+riscv-clang
