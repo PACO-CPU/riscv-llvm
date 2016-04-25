@@ -92,6 +92,29 @@ class InstR64<string mnemonic, bits<7> op, bits<10> funct10,
   let Inst{6 - 0} = op;
 }
 
+// PACO ALU instr format
+class InstPALU32<string mnemonic, bits<7> op, bits<4> funct4,  
+            SDPatternOperator operator, RegisterOperand cls1, 
+            RegisterOperand cls2, Immediate imm>
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src2, cls2:$src1, imm:$src3), 
+                mnemonic#"\t$dst, $src1, $src2, $src3", 
+                [(set cls1:$dst, (operator cls2:$src1, cls2:$src2, imm:$src3))]> {
+  field bits<32> Inst;
+
+  bits<5> RD;
+  bits<5> RS1;
+  bits<5> RS2;
+  //bits<6> IMM;
+
+  let Inst{31-26} = 0;
+  let Inst{25}    = funct4{3};
+  let Inst{24-20} = RS2;
+  let Inst{19-15} = RS1;
+  let Inst{14-12} = funct4{2-0};
+  let Inst{11-7}  = RD;
+  let Inst{6 - 0} = op;
+}
+
 //LR/SC
 class InstLR<string mnemonic, bits<3> funct3,
              RegisterOperand cls1, Operand cls2>

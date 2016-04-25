@@ -81,6 +81,7 @@ def UIMM64 : SDNodeXForm<imm, [{
 //===----------------------------------------------------------------------===//
 
 def U4Imm  : ImmediateAsmOperand<"U4Imm">;
+def U6Imm  : ImmediateAsmOperand<"U6Imm" >;
 def S12Imm : ImmediateAsmOperand<"S12Imm">;
 def U12Imm : ImmediateAsmOperand<"U12Imm">;
 def S20Imm : ImmediateAsmOperand<"S20Imm">;
@@ -93,7 +94,10 @@ def U64Imm : ImmediateAsmOperand<"U64Imm">;
 //===----------------------------------------------------------------------===//
 // i32 immediates
 //===----------------------------------------------------------------------===//
-
+// PACO ALU approx immediate
+def imm32zx6: Immediate<i32, [{
+  return isUInt<6>(N->getZExtValue());
+}], NOOP_SDNodeXForm, "U6Imm">;
 //sign-extended 12 bit immediate
 def imm32sx12 : Immediate<i32, [{
   return isInt<12>(N->getSExtValue());
