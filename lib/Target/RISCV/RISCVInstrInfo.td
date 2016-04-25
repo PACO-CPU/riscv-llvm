@@ -38,6 +38,10 @@ def SRL : InstR<"srl" , 0b0110011, 0b0000000101, srl   , GR32, GR32>, Requires<[
 def SRA : InstR<"sra" , 0b0110011, 0b1000000101, sra   , GR32, GR32>, Requires<[IsRV32]>;
 def OR  : InstR<"or"  , 0b0110011, 0b0000000110, or    , GR32, GR32>;
 def AND : InstR<"and" , 0b0110011, 0b0000000111, and   , GR32, GR32>;
+
+// PACO integer ALU.approx insn
+def ADD_AX : InstPALU32<"add.approx", 0b0001011, 0b0000, int_riscv_add_approx, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
+
 //Integer arithmetic register-immediate
 def ADDI: InstI<"addi", 0b0010011, 0b000       , add, GR32, GR32, imm32sx12>, Requires<[IsRV32]>;
 def XORI: InstI<"xori", 0b0010011, 0b100       , xor, GR32, GR32, imm32sx12>;
