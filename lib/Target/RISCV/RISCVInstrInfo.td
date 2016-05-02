@@ -45,6 +45,9 @@ def SUB_AX : InstPALU32<"sub.approx", 0b0001011, 0b0001, int_riscv_sub_approx, G
 def MUL_AX : InstPALU32<"mul.approx", 0b0001011, 0b0010, int_riscv_mul_approx, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
 
 def FADD_AX : InstPALU32<"fadd.s.approx", 0b0001011, 0b0100, int_riscv_fadd_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
+def FSUB_AX : InstPALU32<"fsub.s.approx", 0b0001011, 0b0101, int_riscv_fsub_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
+def FMUL_AX : InstPALU32<"fmul.s.approx", 0b0001011, 0b0110, int_riscv_fmul_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
+def FSQRT_AX : InstPALU32<"fsqrt.s.approx", 0b0001011, 0b1100, int_riscv_fsqrt_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
 //Integer arithmetic register-immediate
 def ADDI: InstI<"addi", 0b0010011, 0b000       , add, GR32, GR32, imm32sx12>, Requires<[IsRV32]>;
 def XORI: InstI<"xori", 0b0010011, 0b100       , xor, GR32, GR32, imm32sx12>;
