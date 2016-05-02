@@ -48,6 +48,12 @@ def FADD_AX : InstPALU32<"fadd.s.approx", 0b0001011, 0b0100, int_riscv_fadd_s_ap
 def FSUB_AX : InstPALU32<"fsub.s.approx", 0b0001011, 0b0101, int_riscv_fsub_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
 def FMUL_AX : InstPALU32<"fmul.s.approx", 0b0001011, 0b0110, int_riscv_fmul_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
 def FSQRT_AX : InstPALU32<"fsqrt.s.approx", 0b0001011, 0b1100, int_riscv_fsqrt_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
+
+def FADD_D_AX : InstPALU32<"fadd.d.approx", 0b0001011, 0b1000, int_riscv_fadd_d_approx, FP64, FP64, imm32zx6>, Requires<[HasD]>;
+def FSUB_D_AX : InstPALU32<"fsub.d.approx", 0b0001011, 0b1001, int_riscv_fsub_d_approx, FP64, FP64, imm32zx6>, Requires<[HasD]>;
+def FMUL_D_AX : InstPALU32<"fmul.d.approx", 0b0001011, 0b1010, int_riscv_fmul_d_approx, FP64, FP64, imm32zx6>, Requires<[HasD]>;
+def FSQRT_D_AX : InstPALU32<"fsqrt.d.approx", 0b0001011, 0b1101, int_riscv_fsqrt_d_approx, FP64, FP64, imm32zx6>, Requires<[HasD]>;
+
 //Integer arithmetic register-immediate
 def ADDI: InstI<"addi", 0b0010011, 0b000       , add, GR32, GR32, imm32sx12>, Requires<[IsRV32]>;
 def XORI: InstI<"xori", 0b0010011, 0b100       , xor, GR32, GR32, imm32sx12>;

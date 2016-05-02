@@ -11,4 +11,8 @@ def int_riscv_fsub_s_approx : Intrinsic<[llvm_float_ty], [llvm_float_ty, llvm_fl
 def int_riscv_fmul_s_approx : Intrinsic<[llvm_float_ty], [llvm_float_ty, llvm_float_ty, llvm_i32_ty], [IntrNoMem]>;
 def int_riscv_fsqrt_s_approx : Intrinsic<[llvm_float_ty], [llvm_float_ty, llvm_float_ty, llvm_i32_ty], [IntrNoMem]>;
 
+def int_riscv_fadd_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
+def int_riscv_fsub_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
+def int_riscv_fmul_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
+def int_riscv_fsqrt_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
 }
