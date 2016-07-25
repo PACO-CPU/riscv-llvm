@@ -165,6 +165,31 @@ class InstPLUTE<string mnemonic, bits<7> op,
   
 }
 
+// PACO LUTE3 instr format
+class InstPLUTE3<string mnemonic, bits<7> op,  
+            SDPatternOperator operator, 
+            RegisterOperand cls1, RegisterOperand cls2, Immediate imm>
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, cls2:$src2, cls2:$src3, imm:$src4), 
+                mnemonic#"\t$dst, $src1, $src2, $src3, $src4", 
+                [(set cls1:$dst, (operator cls2:$src1, cls2:$src2, cls2:$src3, imm:$src4))]> {
+  field bits<32> Inst;
+
+  bits<5> RD;
+  bits<5> RS1;
+  bits<5> RS2;
+  bits<5> RS3;
+  bits<5> LS;
+  
+  let Inst{31-27} = RS3;
+  let Inst{26-25} = LS{4-3};
+  let Inst{24-20} = RS2;
+  let Inst{19-15} = RS1;
+  let Inst{14-12} = LS{2-0};
+  let Inst{11-7 } = RD;
+  let Inst{6-0}   = op;
+  
+}
+
 //LR/SC
 class InstLR<string mnemonic, bits<3> funct3,
              RegisterOperand cls1, Operand cls2>

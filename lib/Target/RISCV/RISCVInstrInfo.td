@@ -57,6 +57,7 @@ def FSQRT_D_AX : InstPALU32<"fsqrt.d.approx", 0b0001011, 0b1101, int_riscv_fsqrt
 // PACO LUT insn
 def LUTL : InstPLUTL<"lutl", 0b0101011, int_riscv_lutl, GR32, imm32zxlutsel, imm32zxlutroc>, Requires<[IsRV32]>;
 def LUTE : InstPLUTE<"lute", 0b0101011, int_riscv_lute, GR32, GR32, imm32zxlutsel>, Requires<[IsRV32]>;
+def LUTE3 : InstPLUTE3<"lute3", 0b1101011, int_riscv_lute3, GR32, GR32, imm32zxlutsel>, Requires<[IsRV32]>;
 
 //Integer arithmetic register-immediate
 def ADDI: InstI<"addi", 0b0010011, 0b000       , add, GR32, GR32, imm32sx12>, Requires<[IsRV32]>;
