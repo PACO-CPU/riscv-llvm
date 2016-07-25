@@ -141,6 +141,28 @@ class InstPLUTL<string mnemonic, bits<7> op,
   
 }
 
+// PACO LUTS instr format
+class InstPLUTS<string mnemonic, bits<7> op,  
+            SDPatternOperator operator, 
+            RegisterOperand cls1, Immediate imm>
+  : InstRISCV<4, (outs cls1:$dst), (ins imm:$src1), 
+                mnemonic#"\t$dst, $src1", 
+                [(set cls1:$dst, (operator imm:$src1))]> {
+  field bits<32> Inst;
+
+  bits<5> RD;
+  bits<5> LS;
+
+  let Inst{31-30} = 2;
+  let Inst{29-27} = 0;
+  let Inst{26-25} = LS{4-3};
+  let Inst{24-15} = 0;
+  let Inst{14-12} = LS{2-0};
+  let Inst{11-7 } = RD;
+  let Inst{6-0}   = op;
+  
+}
+
 // PACO LUTE instr format
 class InstPLUTE<string mnemonic, bits<7> op,  
             SDPatternOperator operator, 
