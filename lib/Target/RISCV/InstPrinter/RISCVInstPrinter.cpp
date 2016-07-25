@@ -249,3 +249,24 @@ void RISCVInstPrinter::printCond4Operand(const MCInst *MI, int OpNum,
   assert(Imm > 0 && Imm < 15 && "Invalid condition");
   O << CondNames[Imm - 1];
 }
+
+void RISCVInstPrinter::printROCImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  if(MI->getOperand(OpNum).isImm()){
+    int64_t Value = MI->getOperand(OpNum).getImm();
+    assert(isUInt<1>(Value) && "Invalid rocimm argument");
+    O << Value;
+  }else
+    printOperand(MI, OpNum, O);
+}
+
+void RISCVInstPrinter::printLSImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  if(MI->getOperand(OpNum).isImm()){
+    int64_t Value = MI->getOperand(OpNum).getImm();
+    assert(isUInt<5>(Value) && "Invalid lsimm argument");
+    O << Value;
+  }else
+    printOperand(MI, OpNum, O);
+}
+

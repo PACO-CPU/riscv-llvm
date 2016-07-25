@@ -80,6 +80,7 @@ def UIMM64 : SDNodeXForm<imm, [{
 // Immediate asm operands.
 //===----------------------------------------------------------------------===//
 
+def ROCImm : ImmediateAsmOperand<"ROCImm">;
 def U4Imm  : ImmediateAsmOperand<"U4Imm">;
 def U6Imm  : ImmediateAsmOperand<"U6Imm" >;
 def S12Imm : ImmediateAsmOperand<"S12Imm">;
@@ -91,6 +92,8 @@ def U32Imm : ImmediateAsmOperand<"U32Imm">;
 def S64Imm : ImmediateAsmOperand<"S64Imm">;
 def U64Imm : ImmediateAsmOperand<"U64Imm">;
 
+def LSImm  : ImmediateAsmOperand<"LSImm" >;
+
 //===----------------------------------------------------------------------===//
 // i32 immediates
 //===----------------------------------------------------------------------===//
@@ -98,6 +101,14 @@ def U64Imm : ImmediateAsmOperand<"U64Imm">;
 def imm32zx6: Immediate<i32, [{
   return isUInt<6>(N->getZExtValue());
 }], NOOP_SDNodeXForm, "U6Imm">;
+// PACO LUT load/reset switch
+def imm32zxlutroc: Immediate<i32, [{
+  return isUInt<1>(N->getZExtValue());
+}], NOOP_SDNodeXForm, "ROCImm">;
+// PACO LUT selector immediate
+def imm32zxlutsel: Immediate<i32, [{
+  return isUInt<5>(N->getZExtValue());
+}], NOOP_SDNodeXForm, "LSImm">;
 //sign-extended 12 bit immediate
 def imm32sx12 : Immediate<i32, [{
   return isInt<12>(N->getSExtValue());

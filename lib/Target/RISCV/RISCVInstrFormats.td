@@ -115,6 +115,32 @@ class InstPALU32<string mnemonic, bits<7> op, bits<4> funct4,
   let Inst{6 - 0} = op;
 }
 
+
+// PACO LUTL instr format
+class InstPLUTL<string mnemonic, bits<7> op,  
+            SDPatternOperator operator, RegisterOperand cls1, Immediate imm,
+            Immediate cor>
+  : InstRISCV<4, (outs), (ins cls1:$src1, cor:$src2, imm:$src3), 
+                mnemonic#"\t$src1, $src3, 0, $src2", 
+                [(operator cls1:$src1, cor:$src2, imm:$src3)]> {
+  field bits<32> Inst;
+
+  bits<5> RS1;
+  bits<1> RST;
+  bits<5> LS;
+
+  let Inst{31-30} = 0;
+  let Inst{29-27} = 0;
+  let Inst{26-25} = LS{4-3};
+  let Inst{24-20} = 0;
+  let Inst{19-15} = RS1;
+  let Inst{14-12} = LS{2-0};
+  let Inst{11-8 } = 0;
+  let Inst{7}     = RST{0};
+  let Inst{6-0}   = op;
+  
+}
+
 //LR/SC
 class InstLR<string mnemonic, bits<3> funct3,
              RegisterOperand cls1, Operand cls2>

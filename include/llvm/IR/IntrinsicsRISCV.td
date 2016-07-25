@@ -15,4 +15,7 @@ def int_riscv_fadd_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_
 def int_riscv_fsub_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
 def int_riscv_fmul_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
 def int_riscv_fsqrt_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm_double_ty, llvm_i32_ty], [IntrNoMem]>;
+
+def int_riscv_lutl  : Intrinsic<[],[llvm_i32_ty, llvm_i32_ty, llvm_i32_ty], []>;
+
 }

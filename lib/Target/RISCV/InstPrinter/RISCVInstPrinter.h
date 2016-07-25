@@ -63,6 +63,8 @@ private:
   void printU64ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printCallOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printAccessRegOperand(const MCInst *MI, int OpNum, raw_ostream &O);
+  void printROCImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
+  void printLSImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
 
   // Print the mnemonic for a condition-code mask ("ne", "lh", etc.)
   // This forms part of the instruction name rather than the operand list.
