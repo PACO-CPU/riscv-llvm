@@ -98,9 +98,6 @@ namespace {
         _id_high++;
       }
 
-      printf("uuid: %.8x %.8x %.8x %.8x -> %.8x\n",
-        id_orig.words[0],id_orig.words[1],id_orig.words[2],id_orig.words[3],
-        id_new);
       II.setArgOperand(idx+3,ConstantInt::get(Type::getInt32Ty(II.getContext()),id_new));
 
       #undef ARGV
