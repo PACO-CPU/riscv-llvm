@@ -39,6 +39,7 @@
 #include "llvm/Support/ToolOutputFile.h"
 #include "llvm/Target/TargetLibraryInfo.h"
 #include "llvm/Target/TargetMachine.h"
+#include "llvm/Transforms/PACO/Paco.h"
 #include <memory>
 using namespace llvm;
 
@@ -183,6 +184,7 @@ int main(int argc, char **argv) {
   initializeLoopStrengthReducePass(*Registry);
   initializeLowerIntrinsicsPass(*Registry);
   initializeUnreachableBlockElimPass(*Registry);
+  initializePACO(*Registry);
 
   // Register the target printer for --version.
   cl::AddExtraVersionPrinter(TargetRegistry::printRegisteredTargetsForVersion);

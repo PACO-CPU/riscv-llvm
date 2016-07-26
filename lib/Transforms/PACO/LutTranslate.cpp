@@ -1,20 +1,28 @@
+
+#define DEBUG_TYPE "paco-lut-translate"
 #include "llvm/IR/Module.h"
 #include "llvm/Pass.h"
 #include "llvm/InstVisitor.h"
 #include "llvm/ADT/MapVector.h"
+#include "llvm/Transforms/PACO/Paco.h"
 #include <stdio.h>
 using namespace llvm;
 
 namespace {
   struct LutTranslate : public ModulePass {
     static char ID; // Pass identification, replacement for typeid
-    LutTranslate() : ModulePass(ID) {
-      
+    LutTranslate() : ModulePass(ID) {  
+      initializeLutTranslatePass(*PassRegistry::getPassRegistry());
     }
 
     bool runOnModule(Module &M);
 
+    virtual const char *getPassName() const {
+      return "PACO Lut Translate";
+    }
   };
+
+  char LutTranslate::ID = 0;
 
   struct LutTranslator : public InstVisitor<LutTranslator> {
   public:
@@ -65,11 +73,15 @@ namespace {
     }
   };
 }
-
-char LutTranslate::ID = 0;
+/*
 static RegisterPass<LutTranslate> X("lut-translate",
                 "PACO LUT identifier translation", false, false);
+                */
 
+INITIALIZE_PASS(LutTranslate,"lut-translate",
+                "PACO LUT identifier translation", false, false)
+
+ModulePass *llvm::createLutTranslatePass() { return new LutTranslate(); }
 bool LutTranslate::runOnModule(Module &M) {
   
   LutTranslator LT;

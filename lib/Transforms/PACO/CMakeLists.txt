@@ -1,5 +1,6 @@
-add_llvm_library(LLVMPACO
+add_llvm_library(LLVMpaco
   LutTranslate.cpp
+  paco.cpp
   )
 
-add_dependencies(LLVMipo)
+add_dependencies(LLVMpaco)
