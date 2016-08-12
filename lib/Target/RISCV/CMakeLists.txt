@@ -25,7 +25,7 @@ add_llvm_target(RISCVCodeGen
   RISCVTargetMachine.cpp
   )
 
-add_dependencies(LLVMRISCVCodeGen intrinsics_gen)
+add_dependencies(LLVMRISCVCodeGen intrinsics_gen paco)
 
 add_subdirectory(AsmParser)
 add_subdirectory(InstPrinter)

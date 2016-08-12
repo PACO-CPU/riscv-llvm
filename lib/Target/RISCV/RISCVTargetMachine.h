@@ -20,12 +20,15 @@
 #include "RISCVInstrInfo.h"
 #include "RISCVRegisterInfo.h"
 #include "RISCVSubtarget.h"
+#include "llvm/Pass.h"
 #include "llvm/IR/DataLayout.h"
 #include "llvm/Target/TargetFrameLowering.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Target/TargetSelectionDAGInfo.h"
 
 namespace llvm {
+
+class PassManagerBase;
 
 class RISCVTargetMachine : public LLVMTargetMachine {
   RISCVSubtarget        Subtarget;
@@ -40,7 +43,8 @@ public:
                        StringRef FS, const TargetOptions &Options,
                        Reloc::Model RM, CodeModel::Model CM,
                        CodeGenOpt::Level OL);
-
+  
+  virtual void addAnalysisPasses(PassManagerBase &PM);
   // Override TargetMachine.
   virtual const TargetFrameLowering *getFrameLowering() const LLVM_OVERRIDE {
     return &FrameLowering;

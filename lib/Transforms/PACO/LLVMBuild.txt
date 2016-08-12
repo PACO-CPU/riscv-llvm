@@ -1,0 +1,6 @@
+[component_0]
+type = Library
+name = paco
+parent = Transforms
+library_name = paco
+required_libraries = Analysis Core InstCombine Scalar Vectorize Support Target TransformUtils

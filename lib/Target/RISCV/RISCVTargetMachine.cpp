@@ -8,8 +8,10 @@
 //===----------------------------------------------------------------------===//
 
 #include "RISCVTargetMachine.h"
+#include "llvm/PassManager.h"
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/Support/TargetRegistry.h"
+#include "llvm/Transforms/PACO/Paco.h"
 
 using namespace llvm;
 
@@ -62,6 +64,10 @@ public:
 };
 } // end anonymous namespace
 
+void RISCVTargetMachine::addAnalysisPasses(PassManagerBase &PM) {
+  PM.add(createLutTranslatePass());
+  LLVMTargetMachine::addAnalysisPasses(PM);
+}
 bool RISCVPassConfig::addInstSelector() {
   addPass(createRISCVISelDag(getRISCVTargetMachine(), getOptLevel()));
   return false;

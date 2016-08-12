@@ -120,14 +120,18 @@ class InstPALU32<string mnemonic, bits<7> op, bits<4> funct4,
 class InstPLUTL<string mnemonic, bits<7> op,  
             SDPatternOperator operator, RegisterOperand cls1, Immediate imm,
             Immediate cor>
-  : InstRISCV<4, (outs), (ins cls1:$src1, cor:$src2, imm:$src3), 
-                mnemonic#"\t$src1, $src3, 0, $src2", 
-                [(operator cls1:$src1, cor:$src2, imm:$src3)]> {
+  : InstRISCV<4, (outs), 
+    (ins cls1:$src1, cor:$src2, imm:$src34, imm:$src33, imm:$src32, imm:$src31), 
+                mnemonic#"\t$src1, $src31, 0, $src2", 
+                [(operator cls1:$src1, cor:$src2, imm:$src34, imm:$src33, imm:$src32, imm:$src31)]> {
   field bits<32> Inst;
 
   bits<5> RS1;
   bits<1> RST;
-  bits<5> LS;
+  bits<31> LS4;
+  bits<31> LS3;
+  bits<31> LS2;
+  bits<31> LS;
 
   let Inst{31-30} = 0;
   let Inst{29-27} = 0;
@@ -145,13 +149,16 @@ class InstPLUTL<string mnemonic, bits<7> op,
 class InstPLUTS<string mnemonic, bits<7> op,  
             SDPatternOperator operator, 
             RegisterOperand cls1, Immediate imm>
-  : InstRISCV<4, (outs cls1:$dst), (ins imm:$src1), 
-                mnemonic#"\t$dst, $src1", 
-                [(set cls1:$dst, (operator imm:$src1))]> {
+  : InstRISCV<4, (outs cls1:$dst), (ins imm:$src14, imm:$src13, imm:$src12, imm:$src11), 
+                mnemonic#"\t$dst, $src11", 
+                [(set cls1:$dst, (operator imm:$src14, imm:$src13, imm:$src12, imm:$src11))]> {
   field bits<32> Inst;
 
   bits<5> RD;
-  bits<5> LS;
+  bits<31> LS4;
+  bits<31> LS3;
+  bits<31> LS2;
+  bits<31> LS;
 
   let Inst{31-30} = 2;
   let Inst{29-27} = 0;
@@ -167,14 +174,17 @@ class InstPLUTS<string mnemonic, bits<7> op,
 class InstPLUTE<string mnemonic, bits<7> op,  
             SDPatternOperator operator, 
             RegisterOperand cls1, RegisterOperand cls2, Immediate imm>
-  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, imm:$src2), 
-                mnemonic#"\t$dst, $src1, $src2", 
-                [(set cls1:$dst, (operator cls2:$src1, imm:$src2))]> {
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, imm:$src24, imm:$src23, imm:$src22, imm:$src21), 
+                mnemonic#"\t$dst, $src1, $src21", 
+                [(set cls1:$dst, (operator cls2:$src1, imm:$src24, imm:$src23, imm:$src22, imm:$src21))]> {
   field bits<32> Inst;
 
   bits<5> RD;
   bits<5> RS1;
-  bits<5> LS;
+  bits<31> LS4;
+  bits<31> LS3;
+  bits<31> LS2;
+  bits<31> LS;
 
   let Inst{31-30} = 1;
   let Inst{29-27} = 0;
@@ -191,16 +201,19 @@ class InstPLUTE<string mnemonic, bits<7> op,
 class InstPLUTE3<string mnemonic, bits<7> op,  
             SDPatternOperator operator, 
             RegisterOperand cls1, RegisterOperand cls2, Immediate imm>
-  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, cls2:$src2, cls2:$src3, imm:$src4), 
-                mnemonic#"\t$dst, $src1, $src2, $src3, $src4", 
-                [(set cls1:$dst, (operator cls2:$src1, cls2:$src2, cls2:$src3, imm:$src4))]> {
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, cls2:$src2, cls2:$src3, imm:$src44, imm:$src43, imm:$src42, imm:$src41), 
+                mnemonic#"\t$dst, $src1, $src2, $src3, $src41", 
+                [(set cls1:$dst, (operator cls2:$src1, cls2:$src2, cls2:$src3, imm:$src44, imm:$src43, imm:$src42, imm:$src41))]> {
   field bits<32> Inst;
 
   bits<5> RD;
   bits<5> RS1;
   bits<5> RS2;
   bits<5> RS3;
-  bits<5> LS;
+  bits<31> LS4;
+  bits<31> LS3;
+  bits<31> LS2;
+  bits<31> LS;
   
   let Inst{31-27} = RS3;
   let Inst{26-25} = LS{4-3};
