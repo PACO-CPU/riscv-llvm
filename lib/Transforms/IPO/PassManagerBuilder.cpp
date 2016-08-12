@@ -25,6 +25,7 @@
 #include "llvm/Transforms/IPO.h"
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Transforms/Vectorize.h"
+#include "llvm/Transforms/PACO/Paco.h"
 
 using namespace llvm;
 
@@ -142,6 +143,8 @@ void PassManagerBuilder::populateModulePassManager(PassManagerBase &MPM) {
   if (LibraryInfo) MPM.add(new TargetLibraryInfo(*LibraryInfo));
 
   addInitialAliasAnalysisPasses(MPM);
+
+  MPM.add(createLutTranslatePass());
 
   if (!DisableUnitAtATime) {
     addExtensionsToPM(EP_ModuleOptimizerEarly, MPM);

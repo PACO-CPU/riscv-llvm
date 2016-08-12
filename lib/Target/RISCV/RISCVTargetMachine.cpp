@@ -65,7 +65,7 @@ public:
 } // end anonymous namespace
 
 void RISCVTargetMachine::addAnalysisPasses(PassManagerBase &PM) {
-  PM.add(createLutTranslatePass());
+  //PM.add(createLutTranslatePass());
   LLVMTargetMachine::addAnalysisPasses(PM);
 }
 bool RISCVPassConfig::addInstSelector() {
