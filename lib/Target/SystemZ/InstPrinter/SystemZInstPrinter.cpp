@@ -51,6 +51,20 @@ void SystemZInstPrinter::printRegName(raw_ostream &O, unsigned RegNo) const {
   O << '%' << getRegisterName(RegNo);
 }
 
+void SystemZInstPrinter::printU1ImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  int64_t Value = MI->getOperand(OpNum).getImm();
+  assert(isUInt<1>(Value) && "Invalid u1imm argument");
+  O << Value;
+}
+
+void SystemZInstPrinter::printU2ImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  int64_t Value = MI->getOperand(OpNum).getImm();
+  assert(isUInt<2>(Value) && "Invalid u2imm argument");
+  O << Value;
+}
+
 void SystemZInstPrinter::printU4ImmOperand(const MCInst *MI, int OpNum,
                                            raw_ostream &O) {
   int64_t Value = MI->getOperand(OpNum).getImm();

@@ -49,6 +49,9 @@ private:
   void printBranchTarget(const MCInst *MI, int OpNum, raw_ostream &O);
   void printBDAddrOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printBDXAddrOperand(const MCInst *MI, int OpNum, raw_ostream &O);
+  void printU1ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
+  void printU2ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
+  void printU5ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printU6ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printS12ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printU12ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
@@ -63,8 +66,6 @@ private:
   void printU64ImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printCallOperand(const MCInst *MI, int OpNum, raw_ostream &O);
   void printAccessRegOperand(const MCInst *MI, int OpNum, raw_ostream &O);
-  void printROCImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
-  void printLSImmOperand(const MCInst *MI, int OpNum, raw_ostream &O);
 
   // Print the mnemonic for a condition-code mask ("ne", "lh", etc.)
   // This forms part of the instruction name rather than the operand list.

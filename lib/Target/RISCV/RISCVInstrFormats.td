@@ -92,8 +92,31 @@ class InstR64<string mnemonic, bits<7> op, bits<10> funct10,
   let Inst{6 - 0} = op;
 }
 
-// PACO ALU instr format
+// PACO ALU instr format 32 bit operands
 class InstPALU32<string mnemonic, bits<7> op, bits<4> funct4,  
+            SDPatternOperator operator, RegisterOperand cls1, 
+            RegisterOperand cls2, Immediate imm>
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src2, cls2:$src1, imm:$src3), 
+                mnemonic#"\t$dst, $src1, $src2, $src3", 
+                [(set cls1:$dst, (operator cls2:$src1, cls2:$src2, imm:$src3))]> {
+  field bits<32> Inst;
+
+  bits<5> RD;
+  bits<5> RS1;
+  bits<5> RS2;
+  //bits<6> IMM;
+
+  let Inst{31-26} = 0;
+  let Inst{25}    = funct4{3};
+  let Inst{24-20} = RS2;
+  let Inst{19-15} = RS1;
+  let Inst{14-12} = funct4{2-0};
+  let Inst{11-7}  = RD;
+  let Inst{6 - 0} = op;
+}
+
+// PACO ALU instr format 64 bit operands
+class InstPALU64<string mnemonic, bits<7> op, bits<4> funct4,  
             SDPatternOperator operator, RegisterOperand cls1, 
             RegisterOperand cls2, Immediate imm>
   : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src2, cls2:$src1, imm:$src3), 
@@ -173,10 +196,10 @@ class InstPLUTS<string mnemonic, bits<7> op,
 // PACO LUTE instr format
 class InstPLUTE<string mnemonic, bits<7> op,  
             SDPatternOperator operator, 
-            RegisterOperand cls1, RegisterOperand cls2, Immediate imm>
-  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, imm:$src24, imm:$src23, imm:$src22, imm:$src21), 
-                mnemonic#"\t$dst, $src1, $src21", 
-                [(set cls1:$dst, (operator cls2:$src1, imm:$src24, imm:$src23, imm:$src22, imm:$src21))]> {
+            RegisterOperand cls1, RegisterOperand cls2, Immediate imm1, Immediate imm2, Immediate imm3>
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, imm1:$src24, imm1:$src23, imm1:$src22, imm1:$src21, imm2:$src3, imm3:$src4), 
+                mnemonic#"\t$dst, $src1, $src21, $src3, $src4", 
+                [(set cls1:$dst, (operator cls2:$src1, imm1:$src24, imm1:$src23, imm1:$src22, imm1:$src21, imm2:$src3, imm3:$src4))]> {
   field bits<32> Inst;
 
   bits<5> RD;
@@ -200,10 +223,10 @@ class InstPLUTE<string mnemonic, bits<7> op,
 // PACO LUTE3 instr format
 class InstPLUTE3<string mnemonic, bits<7> op,  
             SDPatternOperator operator, 
-            RegisterOperand cls1, RegisterOperand cls2, Immediate imm>
-  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, cls2:$src2, cls2:$src3, imm:$src44, imm:$src43, imm:$src42, imm:$src41), 
+            RegisterOperand cls1, RegisterOperand cls2, RegisterOperand cls3, RegisterOperand cls4, Immediate imm>
+  : InstRISCV<4, (outs cls1:$dst), (ins cls2:$src1, cls3:$src2, cls4:$src3, imm:$src44, imm:$src43, imm:$src42, imm:$src41), 
                 mnemonic#"\t$dst, $src1, $src2, $src3, $src41", 
-                [(set cls1:$dst, (operator cls2:$src1, cls2:$src2, cls2:$src3, imm:$src44, imm:$src43, imm:$src42, imm:$src41))]> {
+                [(set cls1:$dst, (operator cls2:$src1, cls3:$src2, cls4:$src3, imm:$src44, imm:$src43, imm:$src42, imm:$src41))]> {
   field bits<32> Inst;
 
   bits<5> RD;

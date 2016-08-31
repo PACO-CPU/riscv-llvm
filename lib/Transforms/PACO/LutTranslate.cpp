@@ -98,6 +98,11 @@ namespace {
         _id_high++;
       }
 
+      //Set all other uuid flieds to 0 to prevent overflow errors
+      II.setArgOperand(idx+0,ConstantInt::get(Type::getInt32Ty(II.getContext()),(uint64_t)0));
+      II.setArgOperand(idx+1,ConstantInt::get(Type::getInt32Ty(II.getContext()),(uint64_t)0));
+      II.setArgOperand(idx+2,ConstantInt::get(Type::getInt32Ty(II.getContext()),(uint64_t)0));
+      //Set new id
       II.setArgOperand(idx+3,ConstantInt::get(Type::getInt32Ty(II.getContext()),id_new));
 
       #undef ARGV

@@ -118,6 +118,36 @@ void RISCVInstPrinter::printMemRegOperand(const MCInst *MI, int opNum,
      OS << ")";
 }
 
+void RISCVInstPrinter::printU1ImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  if(MI->getOperand(OpNum).isImm()){
+    int64_t Value = MI->getOperand(OpNum).getImm();
+    assert(isUInt<1>(Value) && "Invalid u1imm argument");
+    O << Value;
+  }else
+    printOperand(MI, OpNum, O);
+}
+
+void RISCVInstPrinter::printU2ImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  if(MI->getOperand(OpNum).isImm()){
+    int64_t Value = MI->getOperand(OpNum).getImm();
+    assert(isUInt<2>(Value) && "Invalid u2imm argument");
+    O << Value;
+  }else
+    printOperand(MI, OpNum, O);
+}
+
+void RISCVInstPrinter::printU5ImmOperand(const MCInst *MI, int OpNum,
+                                           raw_ostream &O) {
+  if(MI->getOperand(OpNum).isImm()){
+    int64_t Value = MI->getOperand(OpNum).getImm();
+    assert(isUInt<5>(Value) && "Invalid u5imm argument");
+    O << Value;
+  }else
+    printOperand(MI, OpNum, O);
+}
+
 void RISCVInstPrinter::printU6ImmOperand(const MCInst *MI, int OpNum,
                                            raw_ostream &O) {
   if(MI->getOperand(OpNum).isImm()){
@@ -248,25 +278,5 @@ void RISCVInstPrinter::printCond4Operand(const MCInst *MI, int OpNum,
   uint64_t Imm = MI->getOperand(OpNum).getImm();
   assert(Imm > 0 && Imm < 15 && "Invalid condition");
   O << CondNames[Imm - 1];
-}
-
-void RISCVInstPrinter::printROCImmOperand(const MCInst *MI, int OpNum,
-                                           raw_ostream &O) {
-  if(MI->getOperand(OpNum).isImm()){
-    int64_t Value = MI->getOperand(OpNum).getImm();
-    assert(isUInt<1>(Value) && "Invalid rocimm argument");
-    O << Value;
-  }else
-    printOperand(MI, OpNum, O);
-}
-
-void RISCVInstPrinter::printLSImmOperand(const MCInst *MI, int OpNum,
-                                           raw_ostream &O) {
-  if(MI->getOperand(OpNum).isImm()){
-    int64_t Value = MI->getOperand(OpNum).getImm();
-    assert(isUInt<5>(Value) && "Invalid lsimm argument");
-    O << Value;
-  }else
-    printOperand(MI, OpNum, O);
 }
 

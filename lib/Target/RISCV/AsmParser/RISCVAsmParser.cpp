@@ -211,7 +211,10 @@ public:
   bool isPairFP64() const { return isReg(PairFP64Reg); }
   bool isPairFP128() const { return isReg(PairFP128Reg); }
   bool isFP128() const { return isReg(FP128Reg); }
+  bool isU1Imm() const { return isImm(0, 1); }
+  bool isU2Imm() const { return isImm(0, 3); }
   bool isU4Imm() const { return isImm(0, 15); }
+  bool isU5Imm() const { return isImm(0, 31); }
   bool isU6Imm() const { return isImm(0, 63); }
   bool isU12Imm() const { return isImm(0, 4096); }
   bool isS12Imm() const { return isImm(-2048, 2047); }
@@ -221,8 +224,6 @@ public:
   bool isS32Imm() const { return isImm(-(1LL << 31), (1LL << 31) - 1); }
   bool isU64Imm() const { return isImm(0, 18446744073709551615UL); }
   bool isS64Imm() const { return isImm(-9223372036854775807LL,9223372036854775807LL); }
-  bool isROCImm() const { return isImm(0, 1); }
-  bool isLSImm() const { return isImm(0, 31); }
 };
 
 // Maps of asm register numbers to LLVM register numbers, with 0 indicating
