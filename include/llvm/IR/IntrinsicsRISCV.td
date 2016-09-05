@@ -22,7 +22,7 @@ def int_riscv_fsqrt_d_approx : Intrinsic<[llvm_double_ty], [llvm_double_ty, llvm
 
 def int_riscv_lutl  : Intrinsic<[],[llvm_i64_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty], []>;
 def int_riscv_luts  : Intrinsic<[llvm_i64_ty],[llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty], [IntrNoMem]>;
-def int_riscv_lute  : Intrinsic<[llvm_i64_ty],[llvm_i64_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty], [IntrNoMem]>;
+def int_riscv_lute  : Intrinsic<[llvm_i64_ty],[llvm_i64_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty], [IntrNoMem]>;
 def int_riscv_lute3 : Intrinsic<[llvm_i64_ty],[llvm_i64_ty, llvm_i64_ty, llvm_i64_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty], [IntrNoMem]>;
 
 }

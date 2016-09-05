@@ -62,7 +62,7 @@ def MUL_AX : InstPALU64<"mul.approx", 0b0001011, 0b0010, int_riscv_mul_approx_op
 // PACO LUT insn
 def LUTL : InstPLUTL<"lutl", 0b0101011, int_riscv_lutl, GR64, imm32zxlutsel, imm32zxlutroc>, Requires<[IsRV64]>;
 def LUTS : InstPLUTS<"luts", 0b0101011, int_riscv_luts, GR64, imm32zxlutsel>, Requires<[IsRV64]>;
-def LUTE : InstPLUTE<"lute", 0b0101011, int_riscv_lute, GR64, GR64, imm32zxlutsel, imm32zxstrange, imm32zxcharm>;
+def LUTE : InstPLUTE<"lute", 0b0101011, int_riscv_lute, GR64, GR64, imm32zxlutsel, imm32zxstrange>;
 def LUTE3 : InstPLUTE3<"lute3", 0b1101011, int_riscv_lute3, GR64, GR64, GR64, GR64, imm32zxlutsel>, Requires<[IsRV64]>;
 
 //Integer arithmetic register-immediate
