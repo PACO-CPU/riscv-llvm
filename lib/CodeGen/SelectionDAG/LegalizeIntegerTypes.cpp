@@ -1157,6 +1157,34 @@ void DAGTypeLegalizer::ExpandIntegerResult(SDNode *N, unsigned ResNo) {
   case ISD::USUBO: ExpandIntRes_UADDSUBO(N, Lo, Hi); break;
   case ISD::UMULO:
   case ISD::SMULO: ExpandIntRes_XMULO(N, Lo, Hi); break;
+  
+  //PACO
+  case ISD::INTRINSIC_WO_CHAIN:
+  case ISD::INTRINSIC_W_CHAIN:
+  case ISD::INTRINSIC_VOID:
+    {
+      bool HasInputChain = N->getOperand(0).getValueType() == MVT::Other;
+      if(!HasInputChain) {
+        unsigned iid =
+          cast<ConstantSDNode>(N->getOperand(HasInputChain))->getZExtValue();
+        if(iid == 1671) {// Add approx
+          //ExpandIntRes_ADDSUB(N, Lo, Hi); break;
+          ;
+        }
+        else if(iid == 1668) {//Sub approx
+          //ExpandIntRes_ADDSUB(N, Lo, Hi); break;
+          ;
+        }
+        else if (iid == 1685) {//Mul approx
+          // Don't know why but it seems that only approx mul inputs need to be expanded
+          ExpandIntRes_MUL(N, Lo, Hi); break;
+          ;
+        }
+        else {//unknown intrinsic
+          ; //TODOPACO: print error
+        }
+      }
+    }
   }
 
   // If Lo/Hi is null, the sub-method took care of registering results etc.

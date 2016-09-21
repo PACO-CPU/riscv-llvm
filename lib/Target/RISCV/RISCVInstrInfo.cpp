@@ -378,6 +378,12 @@ RISCVInstrInfo::InsertBranchAtInst(MachineBasicBlock &MBB, MachineInstr *I, Mach
       BuildMI(MBB, I, DL, get(RISCV::BGEU)).addMBB(TBB).addReg(Cond[2].getReg())
           .addReg(Cond[3].getReg());
       break;
+    //PACO
+    case RISCV::CCMASK_CMP_GT:
+      BuildMI(MBB, I, DL, get(RISCV::BGT)).addMBB(TBB).addReg(Cond[2].getReg())
+          .addReg(Cond[3].getReg());
+      break;
+    //End PACO
     default:
       llvm_unreachable("Invalid branch condition code!");
   }
