@@ -39,10 +39,10 @@ def SRA : InstR<"sra" , 0b0110011, 0b1000000101, sra   , GR32, GR32>, Requires<[
 def OR  : InstR<"or"  , 0b0110011, 0b0000000110, or    , GR32, GR32>;
 def AND : InstR<"and" , 0b0110011, 0b0000000111, and   , GR32, GR32>;
 
-// PACO integer ALU.approx insn
-def ADD_AX : InstPALU32<"add.approx", 0b0001011, 0b0000, int_riscv_add_approx, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
-def SUB_AX : InstPALU32<"sub.approx", 0b0001011, 0b0001, int_riscv_sub_approx, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
-def MUL_AX : InstPALU32<"mul.approx", 0b0001011, 0b0010, int_riscv_mul_approx, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
+// PACO 32 bit integer ALU.approx insn
+def ADD_AX_32 : InstPALU32<"add.approx", 0b0001011, 0b0000, int_riscv_add_approx_op32, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
+def SUB_AX_32 : InstPALU32<"sub.approx", 0b0001011, 0b0001, int_riscv_sub_approx_op32, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
+def MUL_AX_32 : InstPALU32<"mul.approx", 0b0001011, 0b0010, int_riscv_mul_approx_op32, GR32, GR32, imm32zx6>, Requires<[IsRV32]>;
 
 def FADD_AX : InstPALU32<"fadd.s.approx", 0b0001011, 0b0100, int_riscv_fadd_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
 def FSUB_AX : InstPALU32<"fsub.s.approx", 0b0001011, 0b0101, int_riscv_fsub_s_approx, FP32, FP32, imm32zx6>, Requires<[HasF]>;
@@ -54,11 +54,16 @@ def FSUB_D_AX : InstPALU32<"fsub.d.approx", 0b0001011, 0b1001, int_riscv_fsub_d_
 def FMUL_D_AX : InstPALU32<"fmul.d.approx", 0b0001011, 0b1010, int_riscv_fmul_d_approx, FP64, FP64, imm32zx6>, Requires<[HasD]>;
 def FSQRT_D_AX : InstPALU32<"fsqrt.d.approx", 0b0001011, 0b1101, int_riscv_fsqrt_d_approx, FP64, FP64, imm32zx6>, Requires<[HasD]>;
 
+// PACO 64 bit integer ALU.approx insn
+def ADD_AX : InstPALU64<"add.approx", 0b0001011, 0b0000, int_riscv_add_approx_op64, GR64, GR64, imm32zx6>, Requires<[IsRV64]>;
+def SUB_AX : InstPALU64<"sub.approx", 0b0001011, 0b0001, int_riscv_sub_approx_op64, GR64, GR64, imm32zx6>, Requires<[IsRV64]>;
+def MUL_AX : InstPALU64<"mul.approx", 0b0001011, 0b0010, int_riscv_mul_approx_op64, GR64, GR64, imm32zx6>, Requires<[IsRV64]>;
+
 // PACO LUT insn
-def LUTL : InstPLUTL<"lutl", 0b0101011, int_riscv_lutl, GR32, imm32zxlutsel, imm32zxlutroc>, Requires<[IsRV32]>;
-def LUTS : InstPLUTS<"luts", 0b0101011, int_riscv_luts, GR32, imm32zxlutsel>, Requires<[IsRV32]>;
-def LUTE : InstPLUTE<"lute", 0b0101011, int_riscv_lute, GR32, GR32, imm32zxlutsel>, Requires<[IsRV32]>;
-def LUTE3 : InstPLUTE3<"lute3", 0b1101011, int_riscv_lute3, GR32, GR32, imm32zxlutsel>, Requires<[IsRV32]>;
+def LUTL : InstPLUTL<"lutl", 0b0101011, int_riscv_lutl, GR64, imm32zxlutsel, imm32zxlutroc>, Requires<[IsRV64]>;
+def LUTS : InstPLUTS<"luts", 0b0101011, int_riscv_luts, GR64, imm32zxlutsel>, Requires<[IsRV64]>;
+def LUTE : InstPLUTE<"lute", 0b0101011, int_riscv_lute, GR64, GR64, imm32zxlutsel, imm32zxstrange>;
+def LUTE3 : InstPLUTE3<"lute3", 0b1101011, int_riscv_lute3, GR64, GR64, GR64, GR64, imm32zxlutsel>, Requires<[IsRV64]>;
 
 //Integer arithmetic register-immediate
 def ADDI: InstI<"addi", 0b0010011, 0b000       , add, GR32, GR32, imm32sx12>, Requires<[IsRV32]>;
