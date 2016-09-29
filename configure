@@ -15,7 +15,7 @@
 ## --------------------- ##
 
 # PACO: Add libuuid
-LDFLAGS=-luuid
+LIBS=-luuid
 
 # Be Bourne compatible
 if test -n "${ZSH_VERSION+set}" && (emulate sh) >/dev/null 2>&1; then
